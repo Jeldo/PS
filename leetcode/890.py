@@ -1,17 +1,18 @@
 class Solution:
-    def findAndReplacePattern(self, words, pattern):
+    # O(n)
+    def findAndReplacePattern(self, words, pattern): 
         answers = list()
         pattern_dict = dict()
         pattern_list = list()
         cur_num = -1
         cur_char = ''
-        for i in range(0, len(pattern)):
+        for i in range(0, len(pattern)): # * n
             if cur_char == pattern[i]:
-                pattern_list.append(pattern_dict[cur_char])
+                pattern_list.append(pattern_dict[cur_char]) # O(1)
             else:
                 cur_num += 1
                 cur_char = pattern[i]
-                if cur_char not in pattern_dict:
+                if cur_char not in pattern_dict: # O(1)
                     pattern_dict[cur_char] = cur_num
                 pattern_list.append(pattern_dict[cur_char])
 
@@ -21,7 +22,7 @@ class Solution:
             word_dict = dict()
             cur_word_num = -1
             cur_word_char = ''
-            for i in range(0, len(word)):
+            for i in range(0, len(word)): # * n
                 if cur_word_char == word[i]:
                     word_list.append(cur_word_num)
                 else:

@@ -1,3 +1,5 @@
 *.exe
 .vscode
 test.py
+test.cpp
+/venv

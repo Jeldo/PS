@@ -14,7 +14,7 @@ class Solution:
     def sumall(self, root):
         if root is None:
             return 0
-        if root.left is not None and root.left.left == None and root.left.right == None:
+        if root.left and not root.left.left and not root.left.right:
             self.total += root.left.val
         if root.left:
             self.sumall(root.left)

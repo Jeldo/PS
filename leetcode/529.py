@@ -23,16 +23,15 @@ class Solution:
             # find adjacent mines
             mines = 0
             for dr, dc in zip(Solution.direction_row, Solution.direction_column):
-                if 0 <= r + dr and r + dr < row and 0 <= c + dc and c + dc < col:
-                    if board[r + dr][c + dc] == 'M':
-                        mines += 1
+                if 0 <= r + dr < row and 0 <= c + dc < col and board[r + dr][c + dc] == 'M':
+                    mines += 1
             if mines > 0:
                 board[r][c] = str(mines)
             # find adjacent blanks
             elif mines == 0:
                 board[r][c] = 'B'
                 for dr, dc in zip(Solution.direction_row, Solution.direction_column):
-                    if 0 <= r + dr and r + dr < row and 0 <= c + dc and c + dc < col and not visited[r + dr][c + dc]:
+                    if 0 <= r + dr < row and 0 <= c + dc < col and not visited[r + dr][c + dc]:
                         eight_flood_fill(board, visited, r + dr, c + dc)
 
         if board[click_r][click_c] == 'M':

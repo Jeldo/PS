@@ -1,15 +1,19 @@
+'''
+Array
+Time Complexity: O(nlogn)
+'''
+
 from collections import deque
 
 
 class Solution:
     def deckRevealedIncreasing(self, deck):
-        deck = sorted(deck, reverse=True)
+        deck = sorted(deck, reverse=True)        # O(nlogn)
         answer = deque()
-        for i in range(0, len(deck)):
+        for i in range(0, len(deck)):            # O(n)
             if answer:
-                answer.appendleft(answer.pop())
+                answer.appendleft(answer.pop())  # O(1), O(1)
             answer.appendleft(deck[i])
-        print(type(answer))
         return answer
 
 

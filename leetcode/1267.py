@@ -17,7 +17,6 @@ class Solution:
                 while is_safe(next_position) and not is_found:
                     if grid[next_position[0]][next_position[1]] == 1:
                         total += 1
-                        print(next_position)
                         is_found = True
                     next_position[0] += dr
                     next_position[1] += dc
@@ -27,7 +26,6 @@ class Solution:
         for i in range(height):
             for j in range(width):
                 if grid[i][j] == 1:
-                    print('start at {}'.format((i, j)))
                     find_server([i, j])
 
         return total

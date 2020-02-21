@@ -2,7 +2,7 @@ from itertools import permutations
 
 
 class Solution:
-    # 1 backtracking
+    # 1 dfs
     def numTilePossibilities(self, tiles: str):
         result = set()
 

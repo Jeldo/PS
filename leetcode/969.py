@@ -1,5 +1,19 @@
 class Solution:
+    # using python syntax
     def pancakeSort(self, A):
+        starting_states = list()
+        current_size = len(A)
+        while current_size > 1:
+            index_of_max = A[:current_size].index(max(A[:current_size]))
+            if index_of_max != current_size - 1:
+                A = A[:index_of_max+1][::-1] + A[index_of_max+1:]
+                A = A[:current_size][::-1] + A[current_size:]
+                starting_states.extend([index_of_max+1, current_size])
+            current_size -= 1
+        return starting_states
+
+    # naive pancake sort
+    def pancakeSort2(self, A):
         starting_states = list()
 
         def flip(arr, i):
@@ -31,6 +45,7 @@ class Solution:
 
 arr = [
     [3, 2, 4, 1],
+    [19, 23, 6, 15, 45, 30, 14]
 ]
 for a in arr:
     s = Solution().pancakeSort(a)

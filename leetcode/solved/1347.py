@@ -20,6 +20,7 @@ class Solution:
                 ans += diff
         return ans
 
+    # Without using library
     def minSteps3(self, s, t):
         def get_dict(string):
             new_dict = dict()

@@ -1,3 +1,8 @@
+'''
+Time Complexity: O(n), n = length of string
+'''
+
+
 class Solution:
     def minRemoveToMakeValid(self, s):
         word_list = list(s)

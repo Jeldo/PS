@@ -1,3 +1,9 @@
+'''
+Category: String
+Time Complexity: O(S)
+'''
+
+
 class Solution:
     def scoreOfParentheses(self, S):
         score = 0
@@ -10,11 +16,8 @@ class Solution:
                 depth += 1
             else:
                 depth -= 1
-                if prev == '(' and cur == ')':
-                    if depth == 0:
-                        score += 1
-                    else:
-                        score += 2**(depth)
+                if prev == '(':
+                    score += 2**depth
             prev = p
         return score
 

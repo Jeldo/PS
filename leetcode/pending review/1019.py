@@ -3,8 +3,6 @@ Category: Linked List
 Time Complexity: 
 '''
 
-# Definition for singly-linked list.
-
 
 class ListNode:
     def __init__(self, x):
@@ -17,31 +15,7 @@ class ListNode:
 
 class Solution:
     def nextLargerNodes(self, head: ListNode):
-        ans = list()
-        # stack = list()
-        # cur = head
-        # while cur.next:
-        #     stack.append(cur.val)
-        #     cur = cur.next
-        # stack.append(cur.val)
-
-        # highest = 0
-        # while stack:
-        #     val = stack.pop()
-        #     if highest < val:
-        #         highest = val
-        #         ans.insert(0, 0)
-        #     else:
-        #         ans.insert(0, highest)
-        nodes = list()
-
-        def dfs(node: ListNode):
-            if node:
-                nodes.append(node)
-            if node.next:
-                dfs(node.next)
-        dfs(head)
-        return ans
+        return
 
     # brute force, time limit exceeds
     def nextLargerNodes2(self, head: ListNode):

@@ -22,6 +22,23 @@ class Solution:
             node = node.next
         return len(count)
 
+    def numComponents2(self, head: ListNode, G):
+        node = head
+        set_G = set(G)
+        count = 0
+        isContinuous = False
+
+        while node:
+            if node.val in set_G:
+                isContinuous = True
+                if not node.next:
+                    count += 1
+            elif isContinuous:
+                count += 1
+                isContinuous = False
+            node = node.next
+        return count
+
 
 a = ListNode(0)
 b = ListNode(1)
@@ -54,5 +71,5 @@ c2 = [aa, arr2]
 cases = [c1, c2]
 
 for case in cases:
-    s = Solution().numComponents(case[0], case[1])
+    s = Solution().numComponents2(case[0], case[1])
     print(s)

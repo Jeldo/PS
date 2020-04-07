@@ -1,3 +1,9 @@
+'''
+Category: Linked List
+Time Complexity: O(n)
+'''
+
+
 class ListNode:
     def __init__(self, x):
         self.val = x
@@ -15,9 +21,8 @@ class Solution:
                 sub += 1
                 if not node.next:
                     count.append(sub)
-            else:
-                if sub > 0:
-                    count.append(sub)
+            elif sub > 0:
+                count.append(sub)
                 sub = 0
             node = node.next
         return len(count)

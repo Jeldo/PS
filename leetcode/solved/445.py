@@ -11,7 +11,35 @@ class ListNode:
 
 
 class Solution:
+    # using stack
     def addTwoNumbers(self, l1: ListNode, l2: ListNode):
+        stack1, stack2 = list(), list()
+        while l1:
+            stack1.append(l1.val)
+            l1 = l1.next
+        while l2:
+            stack2.append(l2.val)
+            l2 = l2.next
+        carry = 0
+        head = None
+        while stack1 or stack2 or carry:
+            num = 0
+            if stack1:
+                num += stack1.pop()
+            if stack2:
+                num += stack2.pop()
+            num += carry
+            carry = 0
+            if num >= 10:
+                carry = 1
+                num -= 10
+            node = ListNode(num)
+            node.next = head
+            head = node
+        return head
+
+    # using list
+    def addTwoNumbers1(self, l1: ListNode, l2: ListNode):
         list1, list2 = list(), list()
         while l1:
             list1.append(l1.val)

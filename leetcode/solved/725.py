@@ -21,31 +21,66 @@ def showNodeValues(head: ListNode):
 
 class Solution:
     def splitListToParts(self, root: ListNode, k: int):
+        curr, length = root, 0
+        while curr:
+            curr, length = curr.next, length + 1
+        part_len, extra = divmod(length, k)
+        parts = [part_len + 1] * extra + [part_len] * (k - extra)
+        prev, curr = None, root
+        for index, num in enumerate(parts):
+            if prev:
+                prev.next = None
+            parts[index] = curr
+            for i in range(num):
+                prev, curr = curr, curr.next
+        return parts
+
+    def splitListToParts2(self, root: ListNode, k: int):
+        ans = list()
+        curr, length = root, 0
+        while curr:
+            curr, length = curr.next, length + 1
+        part_len, extra = divmod(length, k)
+        index = 0
+        while index < k and root:
+            ans.append(root)
+            j = 1
+            while j < part_len + (index < extra):
+                root = root.next
+                j += 1
+            next_node = root.next
+            root.next = None
+            root = next_node
+            index += 1
+        # for n in ans:
+        #     showNodeValues(n)
+        return ans
+
+    def splitListToParts3(self, root: ListNode, k: int):
         nodes = list()
         ans = list()
         while root:
             nodes.append(root)
             root = root.next
         part_len, remainder = divmod(len(nodes), k)
-        part_counter = [part_len for _ in range(k)]
+        parts = [part_len for _ in range(k)]
         for i in range(remainder):
-            part_counter[i] += 1
+            parts[i] += 1
         index = 0
-        for part_len in part_counter:
+        for part_len in parts:
             if part_len == 0:
                 ans.append(None)
             part_count = 0
             while part_count < part_len:
                 cur = nodes[index]
-                cur.next = nodes[index].next
                 if part_count == 0:
                     ans.append(cur)
                 part_count += 1
                 if part_count == part_len:
                     cur.next = None
                 index += 1
-        for n in ans:
-            showNodeValues(n)
+        # for n in ans:
+        #     showNodeValues(n)
         return ans
 
 
@@ -102,6 +137,6 @@ cases = [
 ]
 
 for case in cases:
-    s = Solution().splitListToParts(case[0], case[1])
+    s = Solution().splitListToParts2(case[0], case[1])
     # showNodeValues(s)
     print(s)

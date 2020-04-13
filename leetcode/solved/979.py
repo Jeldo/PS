@@ -20,10 +20,21 @@ def showNodes(head: TreeNode):
 
 
 class Solution:
+
     def distributeCoins(self, root: TreeNode):
         count = 0
 
         def dfs(node: TreeNode):
+            nonlocal count
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            count += abs(left) + abs(right)
+            return node.val + left + right - 1
+
+        # too slow
+        def dfs2(node: TreeNode):
             nonlocal count
             if node.left:
                 dfs(node.left)

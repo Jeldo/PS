@@ -23,6 +23,23 @@ def showNodes(head: TreeNode):
 
 class Solution:
     def lcaDeepestLeaves(self, root: TreeNode):
+        def count_depth(root: TreeNode):
+            if not root:
+                return 0
+            return 1 + max(count_depth(root.left), count_depth(root.right))
+
+        if not root:
+            return None
+        left = count_depth(root.left)
+        right = count_depth(root.right)
+        if left == right:
+            return root
+        elif left < right:
+            return self.lcaDeepestLeaves(root.right)
+        else:
+            return self.lcaDeepestLeaves(root.left)
+
+    def lcaDeepestLeaves1(self, root: TreeNode):
         value_of_deepest_nodes = set()
         parents = list()
         matching_nodes = 0

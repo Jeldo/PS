@@ -29,42 +29,46 @@ class Solution:
         # showNodes(root)
 
         def bfs(node: Node):
-            q = Queue()
-            q.put(node)
+            if not node:
+                return []
+            q1 = Queue()
+            q2 = Queue()
+            q1.put(node)
             nodes = list([[node.val]])
-            while not q.empty():
-                n = list()
-                cur = q.get()
+            same_level_nodes = list()
+            while not q1.empty():
+                cur = q1.get()
                 for c in cur.children:
-                    q.put(c)
-                    n.append(c.val)
-                if n:
-                    nodes.append(n)
+                    q2.put(c)
+                    same_level_nodes.append(c.val)
+                if q1.empty():
+                    if same_level_nodes:
+                        nodes.append(same_level_nodes)
+                        same_level_nodes = list()
+                    q1 = q2
+                    q2 = Queue()
             return nodes
 
         def bfs2(node: Node):
-            q = list()
-            q.append(node)
-            nodes = list()
-            n = list()
-            last = node.val
-            while q:
-                cur = q.pop(0)
+            if not node:
+                return []
+            q1 = list([node])
+            q2 = list()
+            nodes = list([[node.val]])
+            same_level_nodes = list()
+            while q1:
+                cur = q1.pop(0)
                 for c in cur.children:
-                    q.append(c)
-                    n.append(c.val)
-                    print(cur.val, last)
-                    if cur.val == last:
-                        print('ok')
-                        last = c.val
-                        nodes.append(n)
-                        n.clear()
-
-                # print([x.val for x in q])
-                # if n:
-                #     nodes.append(n)
+                    q2.append(c)
+                    same_level_nodes.append(c.val)
+                if len(q1) == 0:
+                    if same_level_nodes:
+                        nodes.append(same_level_nodes)
+                        same_level_nodes = list()
+                    q1 = q2
+                    q2 = list()
             return nodes
-        return bfs2(root)
+        return bfs(root)
 
 
 cases = list()
@@ -106,4 +110,3 @@ cases.append(one)
 for c in cases:
     s = Solution().levelOrder(c)
     print(s)
-    print('----------')

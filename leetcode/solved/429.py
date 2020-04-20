@@ -5,6 +5,7 @@ Space Complexity:
 '''
 
 from queue import Queue
+from collections import defaultdict
 
 
 class Node:
@@ -27,7 +28,6 @@ def showNodes(node: Node):
 class Solution:
     def levelOrder(self, root: Node):
         # showNodes(root)
-
         def bfs(node: Node):
             if not node:
                 return []
@@ -68,7 +68,44 @@ class Solution:
                     q1 = q2
                     q2 = list()
             return nodes
-        return bfs(root)
+
+        def bfs3(node: Node):
+            if not node:
+                return []
+            q1 = Queue()
+            q1.put((node, 0))
+            d = defaultdict(list)
+            while not q1.empty():
+                cur, level = q1.get()
+                d[level].append(cur.val)
+                for c in cur.children:
+                    q1.put((c, level + 1))
+            return [v for k, v in d.items()]
+
+        def bfs4(node: Node):
+            if not node:
+                return []
+            q1 = Queue()
+            q1.put(node)
+            nodes = list()
+            same_level_nodes = list()
+            parent_count, children_count = 1, 0
+
+            while not q1.empty():
+                cur = q1.get()
+                parent_count -= 1
+                children_count += len(cur.children)
+                same_level_nodes.append(cur.val)
+                if parent_count == 0:
+                    nodes.append(same_level_nodes)
+                    same_level_nodes = list()
+                    parent_count = children_count
+                    children_count = 0
+                for c in cur.children:
+                    q1.put(c)
+            return nodes
+
+        return bfs4(root)
 
 
 cases = list()

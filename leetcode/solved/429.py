@@ -4,7 +4,7 @@ Time Complexity:
 Space Complexity:
 '''
 
-from queue import Queue
+from queue import Queue, deque
 from collections import defaultdict
 
 
@@ -27,8 +27,25 @@ def showNodes(node: Node):
 
 class Solution:
     def levelOrder(self, root: Node):
-        # showNodes(root)
         def bfs(node: Node):
+            nodes = list()
+            q = deque()
+            q.append(node)
+            while q:
+                temp_list = list()
+                temp_q = deque()
+                for parent in q:
+                    if parent:
+                        temp_list.append(parent.val)
+                        for child in parent.children:
+                            temp_q.append(child)
+                q = temp_q
+                if temp_list:
+                    nodes.append(temp_list)
+            return nodes
+
+        # showNodes(root)
+        def bfs1(node: Node):
             if not node:
                 return []
             q1 = Queue()
@@ -105,7 +122,7 @@ class Solution:
                     q1.put(c)
             return nodes
 
-        return bfs4(root)
+        return bfs(root)
 
 
 cases = list()

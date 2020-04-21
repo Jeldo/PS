@@ -44,6 +44,7 @@ class Solution:
         dfs(root, 0)
         return deepest_value
 
+    # bfs
     def findBottomLeftValue2(self, root: TreeNode):
         max_level = 0
         deepest_value = root.val
@@ -62,6 +63,7 @@ class Solution:
                 q.put((right, level + 1))
         return deepest_value
 
+    # bfs
     def findBottomLeftValue3(self, root: TreeNode):
         deepest_value = root.val
         q = deque()

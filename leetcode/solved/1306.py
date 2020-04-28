@@ -10,10 +10,11 @@ from queue import Queue
 class Solution:
     def canReach(self, arr, start):
         q = Queue()
-        isVisited = [False] * len(arr)
-        q.put(start)
+        visited = [False] * len(arr)
+        q.put([start, visited])
         while not q.empty():
-            i = q.get()
+            i, nums = q.get()
+            isVisited = nums.copy()
             if arr[i] == 0:
                 return True
             if isVisited[i]:
@@ -21,9 +22,9 @@ class Solution:
             isVisited[i] = True
             left, right = i - arr[i], i + arr[i]
             if 0 <= left < len(arr):
-                q.put(left)
+                q.put([left, isVisited])
             if 0 <= right < len(arr):
-                q.put(right)
+                q.put([right, isVisited])
         return False
 
 

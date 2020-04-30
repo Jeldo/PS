@@ -1,3 +1,9 @@
+'''
+Category: Dynamic Programming
+Time Complexity: O(m*n), let m: len(coins), n: amount
+Space Complexity: O(n)
+'''
+
 class Solution:
     def coinChange(self, coins: list, amount: int):
         c = [0 for _ in range(0, amount + 1)]
@@ -24,3 +30,4 @@ cases = [
 for c in cases:
     s = Solution().coinChange(c[0], c[1])
     print(s)
+    

@@ -1,5 +1,6 @@
 '''
 Category: String
+Time Complexity: O(n)
 '''
 
 

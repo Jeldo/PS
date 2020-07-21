@@ -1,3 +1,9 @@
+'''
+Category: Stack
+Time Complexity: O(S)
+'''
+
+
 class Solution:
     def minAddToMakeValid(self, S):
         stack = []

@@ -21,6 +21,20 @@ class Solution:
             prev = p
         return score
 
+    def scoreOfParentheses2(self, S):
+        score = 0
+        prev = ''
+        level = 0
+        for p in S:
+            if p == '(':
+                level += 1
+            else:
+                level -= 1
+                if prev == '(':
+                    score += 2 ** level
+            prev = p
+        return score
+
 
 cases = [
     '()',

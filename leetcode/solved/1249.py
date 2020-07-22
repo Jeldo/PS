@@ -1,5 +1,6 @@
 '''
-Time Complexity: O(n), n = length of string
+Category: Stack
+Time Complexity: O(s)
 '''
 
 
@@ -14,8 +15,7 @@ class Solution:
                 stack.append((i, ch))
         for p in stack:
             word_list[p[0]] = ''
-        ans = ''.join(word_list)
-        return ans
+        return ''.join(word_list)
 
 
 ss = [

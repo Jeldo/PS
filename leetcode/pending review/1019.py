@@ -11,14 +11,14 @@ class ListNode:
 
 class Solution:
     def nextLargerNodes(self, head: ListNode):
-        answer = []
-        compare = head.val
-        cur = node = head
-        while cur.val >= node.val:
-            if cur.val < node.val:
-                compare = node.val
-            node = node.next
-        return
+        res, stack = [], []
+        while head:
+            while stack and stack[-1][1] < head.val:
+                res[stack.pop()[0]] = head.val
+            stack.append([len(res), head.val])  # len(res)가 인덱스처럼 사용됨.
+            res.append(0)
+            head = head.next
+        return res
 
 
 cases = [

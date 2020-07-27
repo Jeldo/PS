@@ -1,13 +1,15 @@
+'''
+Category: String
+Time Complexity: O(n)
+'''
+
+
 from collections import Counter
 
-
-class Solution:
-    # Time: O(n)
-    def minSteps(self, s, t):
-        ss = Counter(s)
-        tt = Counter(t)
-        # (ss-tt) subtraction between two Counter objects returns new Counter object
-        return sum([val for val in (ss-tt).values()])
+   def minSteps(self, s: str, t: str):
+        # subtraction between two Counter objects returns new Counter object
+        res = sum([v for k, v in (Counter(t) - Counter(s)).items()])
+        return res
 
     # Faster than first method because of avoiding constructing new Counter object.
     def minSteps2(self, s, t):

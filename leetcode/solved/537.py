@@ -1,17 +1,28 @@
+'''
+Category: String
+'''
+
+
 class Solution:
-    def complexNumberMultiply(self, m, n):
-        first = m.split('+')
-        a = first[0]
-        b = first[1].split('i')[0]
-        second = n.split('+')
-        c = second[0]
-        d = second[1].split('i')[0]
-        res = str(int(a)*int(c)-int(b)*int(d)) + \
-            '+' + str(int(a)*int(d)+int(b)*int(c))+'i'
-        return res
+    def complexNumberMultiply(self, a: str, b: str):
+        a, b = a.split('+'), b.split('+')
+        a_r, a_i, b_r, b_i = int(a[0]), int(
+            a[1][:-1]), int(b[0]), int(b[1][:-1])
+        real = a_r * b_r - a_i * b_i
+        imaginary = a_i * b_r + a_r * b_i
+        return str(real) + '+' + str(imaginary) + 'i'
+
+    def complexNumberMultiply2(self, a, b):
+        a1, a2 = map(int, a[:-1].split('+'))
+        b1, b2 = map(int, b[:-1].split('+'))
+        return '%d+%di' % (a1 * b1 - a2 * b2, a1 * b2 + a2 * b1)
 
 
-a = "1+-1i"
-b = "1+-1i"
-s = Solution().complexNumberMultiply(a, b)
-print(s)
+cases = [
+    ["1+1i", "1+1i"],   # "0+2i"
+    ["1+-1i", "1+-1i"],  # "0+-2i"
+]
+
+for c in cases:
+    s = Solution().complexNumberMultiply(c[0], c[1])
+    print(s)

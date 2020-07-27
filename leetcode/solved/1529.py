@@ -1,3 +1,9 @@
+'''
+Category: String
+Time Complexity: O(n)
+'''
+
+
 class Solution:
     def minFlips(self, target: str):
         target = '0' + target

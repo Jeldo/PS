@@ -1,8 +1,11 @@
+'''
+Category: String
+Time Complexity: O(nlogn * logn) - Bisect
+'''
 import bisect
 
 
 class Solution:
-    # Brute force
     def suggestedProducts(self, products, searchWord):
         products = sorted(products)
         ans = list()
@@ -16,25 +19,16 @@ class Solution:
             ans.append(words)
         return ans
 
-    def suggestedProducts2(self, products, searchWord):
-        products = sorted(products)
-        ans = list()
+    def suggestedProducts2(self, products: list, searchWord: str):
+        answer = []
         for i in range(1, len(searchWord)+1):
-            words = list()
-            for p in products:
-                isValid = True
-                if len(p) < i:
-                    continue
-                for j in range(i):
-                    if searchWord[j] != p[j]:
-                        isValid = False
-                        break
-                if isValid:
-                    words.append(p)
-                if len(words) == 3:
-                    break
-            ans.append(words)
-        return ans
+            word = searchWord[:i]
+            candidates = []
+            for product in products:
+                if product.startswith(word):
+                    candidates.append(product)
+            answer.append(sorted(candidates)[:3])
+        return answer
 
     # Binary Search
     def suggestedProducts3(self, products, searchWord):

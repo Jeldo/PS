@@ -1,3 +1,9 @@
+'''
+Category: String
+Time Complexity: O(nlogn)
+'''
+
+
 class Solution:
     def customSortString(self, S, T):
         def find(s, ch):
@@ -15,15 +21,24 @@ class Solution:
                 answer += T[i]
         return answer
 
+    def customSortString2(self, S: str, T: str):
+        S_counter, T_counter = Counter(S), Counter(T)
+        intersection = S_counter & T_counter
+        sub = set(T) - set(S)
+        answer = ''
+        for k in intersection.keys():
+            answer += k * T_counter[k]
+        for x in sub:
+            answer += x * T_counter[x]
+        return answer
 
-S = "cba"
-T = "abcd"
 
-SS = "cbafg"
-TT = "abcd"  # cbad
+cases = [
+    ['cba', 'abcd'],
+    ['fhg', 'zxc'],
+    ["kqep", "pekeq"]
+]
 
-SSS = "kqep"
-TTT = "pekeq"
-
-s = Solution().customSortString(SSS, TTT)
-print(s)
+for c in cases:
+    s = Solution().customSortString(c[0], c[1])
+    print(s)

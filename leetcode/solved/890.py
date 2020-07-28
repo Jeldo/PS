@@ -32,7 +32,7 @@ class Solution:
                 answer.append(word)
         return answer
 
-    def findAndReplacePattern(self, words, pattern):
+    def findAndReplacePattern2(self, words, pattern):
         answers = list()
         pattern_dict = dict()
         pattern_list = list()

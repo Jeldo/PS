@@ -13,8 +13,7 @@ class Solution:
                 s2 = s2[:i] + s2[i+1:]
         c1, c2 = Counter(s1), Counter(s2)
         if (c1['x'] + c2['x']) % 2 != 0 or (c1['y'] + c2['y']) % 2 != 0:
-            return False
-        print(s1, s2)
+            return -1
         print(c1, c2)
         return True
 

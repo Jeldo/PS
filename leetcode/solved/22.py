@@ -9,6 +9,7 @@ class Solution:
 
         def dfs(p, opened, closed):
             nonlocal answer
+            print(p)
             if len(p) == n * 2:
                 answer.append(p)
                 return

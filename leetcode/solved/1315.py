@@ -34,6 +34,8 @@ class Solution:
         return count
 
 
+cases = []
+
 root = TreeNode(6)
 root.left = TreeNode(7)
 root.right = TreeNode(8)
@@ -45,6 +47,8 @@ root.left.left.left = TreeNode(9)
 root.left.right.left = TreeNode(1)
 root.left.right.right = TreeNode(4)
 root.right.right.right = TreeNode(5)
+cases.append(root)
 
-s = Solution().sumEvenGrandparent(root)
-print(s)
+for c in cases:
+    s = Solution().sumEvenGrandparent(c)
+    print(s)

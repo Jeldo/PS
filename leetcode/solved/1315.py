@@ -33,6 +33,20 @@ class Solution:
         dfs(root)
         return count
 
+    def sumEvenGrandparent2(self, root: TreeNode):
+        total = 0
+
+        def dfs(node: TreeNode, p: TreeNode, gp: TreeNode):
+            nonlocal total
+            if not node:
+                return
+            if gp and gp.val % 2 == 0:
+                total += node.val
+            dfs(node.left, node, p)
+            dfs(node.right, node, p)
+        dfs(root, None, None)
+        return total
+
 
 cases = []
 
@@ -50,5 +64,5 @@ root.right.right.right = TreeNode(5)
 cases.append(root)
 
 for c in cases:
-    s = Solution().sumEvenGrandparent(c)
+    s = Solution().sumEvenGrandparent2(c)
     print(s)

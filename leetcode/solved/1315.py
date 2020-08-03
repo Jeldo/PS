@@ -1,4 +1,8 @@
-# Definition for a binary tree node.
+'''
+Category: DFS
+'''
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -29,29 +33,36 @@ class Solution:
         dfs(root)
         return count
 
+    def sumEvenGrandparent2(self, root: TreeNode):
+        total = 0
 
-# root = [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]
+        def dfs(node: TreeNode, p: TreeNode, gp: TreeNode):
+            nonlocal total
+            if not node:
+                return
+            if gp and gp.val % 2 == 0:
+                total += node.val
+            dfs(node.left, node, p)
+            dfs(node.right, node, p)
+        dfs(root, None, None)
+        return total
+
+
+cases = []
+
 root = TreeNode(6)
-a = TreeNode(7)
-b = TreeNode(8)
-c = TreeNode(2)
-d = TreeNode(7)
-e = TreeNode(1)
-f = TreeNode(3)
-g = TreeNode(9)
-h = TreeNode(1)
-i = TreeNode(4)
-j = TreeNode(5)
-root.left = a
-root.right = b
-a.left = c
-a.right = d
-b.left = e
-b.right = f
-c.left = g
-d.left = h
-d.right = i
-f.right = j
+root.left = TreeNode(7)
+root.right = TreeNode(8)
+root.left.left = TreeNode(2)
+root.left.right = TreeNode(7)
+root.right.left = TreeNode(1)
+root.right.right = TreeNode(3)
+root.left.left.left = TreeNode(9)
+root.left.right.left = TreeNode(1)
+root.left.right.right = TreeNode(4)
+root.right.right.right = TreeNode(5)
+cases.append(root)
 
-s = Solution().sumEvenGrandparent(root)
-print(s)
+for c in cases:
+    s = Solution().sumEvenGrandparent2(c)
+    print(s)

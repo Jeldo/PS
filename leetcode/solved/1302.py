@@ -1,4 +1,8 @@
-# Definition for a binary tree node.
+'''
+Category: DFS
+'''
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -7,30 +11,24 @@ class TreeNode:
 
 
 class Solution:
-    def __init__(self):
-        self.max_level = 0
-        self.total = 0
+    def deepestLeavesSum(self, root: TreeNode):
+        max_level = 0
+        count = 0
 
-    # dumb
-    def deepestLeavesSum(self, TreeNode):
-        total = 0
-        q = list()
-        new_q = list()
-        q.append(TreeNode)
-        while q:
-            cur_node = q.pop(0)
-            if not cur_node.left and not cur_node.right and not new_q:
-                total += cur_node.val
-            if cur_node.left:
-                new_q.append(cur_node.left)
-                total = 0
-            if cur_node.right:
-                new_q.append(cur_node.right)
-                total = 0
-            if not q:
-                q = new_q.copy()
-                new_q.clear()
-        return total
+        def dfs(node: TreeNode, level):
+            nonlocal count
+            nonlocal max_level
+            if not node:
+                return
+            if max_level < level:
+                max_level = level
+                count = node.val
+            elif max_level == level:
+                count += node.val
+            dfs(node.left, level + 1)
+            dfs(node.right, level + 1)
+        dfs(root, 0)
+        return count
 
     # BFS
     def deepestLeavesSum2(self, root):
@@ -51,15 +49,18 @@ class Solution:
         return total
 
 
-# treelist = [TreeNode(x) for x in range(1,9)]
+cases = []
 
-# treelist[0].left = treelist[1]      # 2
-# treelist[0].right = treelist[2]     # 3
-# treelist[1].left = treelist[3]      # 4
-# treelist[1].right = treelist[4]     # 5
-# treelist[3].left = treelist[6]      # 7
-# treelist[2].right = treelist[5]     # 6
-# treelist[5].right = treelist[7]     # 8
+treelist = [TreeNode(x) for x in range(1, 9)]
+
+treelist[0].left = treelist[1]      # 2
+treelist[0].right = treelist[2]     # 3
+treelist[1].left = treelist[3]      # 4
+treelist[1].right = treelist[4]     # 5
+treelist[3].left = treelist[6]      # 7
+treelist[2].right = treelist[5]     # 6
+treelist[5].right = treelist[7]     # 8
+cases.append(treelist)
 
 nums = [38, 43, 70, 16, 78, 91, 71, 27, 71, 71]
 treelist = [TreeNode(x) for x in nums]
@@ -73,6 +74,8 @@ treelist[3].right = treelist[6]
 treelist[4].left = treelist[7]
 treelist[5].left = treelist[8]
 treelist[7].right = treelist[9]
+cases.append(treelist)
 
-s = Solution().deepestLeavesSum(treelist[0])
-print('answer:', s)
+for c in cases:
+    s = Solution().deepestLeavesSum(c[0])
+    print(s)

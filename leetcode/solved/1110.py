@@ -17,7 +17,44 @@ def showNodes(head: TreeNode):
 
 
 class Solution:
-    def delNodes(self, root: TreeNode, to_delete: list):
+        def delNodes(self, root: TreeNode, to_delete: list):
+            heads = []
+            to_delete = set(to_delete)
+
+        def remove_val(node: TreeNode):
+            if not node:
+                return
+            if node.val in to_delete:
+                to_delete.remove(node.val)
+                node.val = None
+            remove_val(node.left)
+            remove_val(node.right)
+
+        def find_head(node: TreeNode, prev_val):
+            nonlocal heads
+            if not node:
+                return
+            if node.val and not prev_val:
+                heads.append(node)
+            find_head(node.left, node.val)
+            find_head(node.right, node.val)
+
+        def remove_node(node: TreeNode):
+            if not node:
+                return
+            remove_node(node.left)
+            remove_node(node.right)
+            if node.left and not node.left.val:
+                node.left = None
+            if node.right and not node.right.val:
+                node.right = None
+
+        remove_val(root)
+        find_head(root, None)
+        remove_node(root)
+        return heads
+
+    def delNodes2(self, root: TreeNode, to_delete: list):
         to_delete = set(to_delete)
         parents = list()
 
@@ -58,39 +95,25 @@ class Solution:
         return parents
 
 
-cases = list()
+cases = []
 
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-dels = [1]
-cases.append([head, dels])
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
+cases.append([root, [3, 5]])
 
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-head.left.left = TreeNode(4)
-dels = [3]
-cases.append([head, dels])
-
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-head.left.left = TreeNode(4)
-head.left.right = TreeNode(5)
-dels = [2]
-cases.append([head, dels])
-
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-head.left.left = TreeNode(4)
-head.left.right = TreeNode(5)
-head.right.left = TreeNode(6)
-head.right.right = TreeNode(7)
-dels = [3, 5]
-cases.append([head, dels])
-
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
+cases.append([root, [3, 5, 6]])
 
 for c in cases:
     s = Solution().delNodes(c[0], c[1])

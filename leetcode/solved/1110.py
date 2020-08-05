@@ -17,9 +17,9 @@ def showNodes(head: TreeNode):
 
 
 class Solution:
-        def delNodes(self, root: TreeNode, to_delete: list):
-            heads = []
-            to_delete = set(to_delete)
+    def delNodes(self, root: TreeNode, to_delete: list):
+        heads = []
+        to_delete = set(to_delete)
 
         def remove_val(node: TreeNode):
             if not node:
@@ -38,12 +38,6 @@ class Solution:
                 heads.append(node)
             find_head(node.left, node.val)
             find_head(node.right, node.val)
-
-        def remove_node(node: TreeNode):
-            if not node:
-                return
-            remove_node(node.left)
-            remove_node(node.right)
             if node.left and not node.left.val:
                 node.left = None
             if node.right and not node.right.val:
@@ -51,7 +45,6 @@ class Solution:
 
         remove_val(root)
         find_head(root, None)
-        remove_node(root)
         return heads
 
     def delNodes2(self, root: TreeNode, to_delete: list):

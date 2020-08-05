@@ -1,8 +1,3 @@
-'''
-Category: DFS
-'''
-
-
 class Solution:
     def maxAreaOfIsland(self, grid: list):
         cur_size = 0
@@ -58,3 +53,9 @@ cases = [
 for c in cases:
     s = Solution().maxAreaOfIsland(c)
     print(s)
+
+
+# grid = [[0, 0, 0],
+#         [0, 0, 0]]
+# a = [[0] * len(grid[0]) for _ in range(len(grid))]
+# print(a)

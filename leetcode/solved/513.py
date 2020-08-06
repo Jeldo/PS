@@ -1,48 +1,31 @@
 '''
-Category: BFS, DFS, Tree
+Category: DFS, Tree
 Time Complexity: O(n)
-Space Complexity: 
 '''
-from queue import Queue
-from queue import deque
 
 
 class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
-def showNodes(head: TreeNode):
-    def dfs(head: TreeNode):
-        if head:
-            print(head.val, end=' ')
-            dfs(head.left)
-            dfs(head.right)
-    dfs(head)
-    print()
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
-    # inorder DFS
     def findBottomLeftValue(self, root: TreeNode):
-        max_level = 0
-        deepest_value = root.val
+        left_most, deepest_level = root.val, 0
 
         def dfs(node: TreeNode, level):
-            nonlocal max_level
-            nonlocal deepest_value
+            nonlocal left_most, deepest_level
             if not node:
                 return
-            if max_level < level:
-                max_level = level
-                deepest_value = node.val
+            if deepest_level < level:
+                left_most = node.val
+                deepest_level = level
             dfs(node.left, level + 1)
             dfs(node.right, level + 1)
-
         dfs(root, 0)
-        return deepest_value
+        return left_most
 
     # bfs
     def findBottomLeftValue2(self, root: TreeNode):
@@ -81,39 +64,32 @@ class Solution:
         return deepest_value
 
 
-cases = list()
+cases = []
 
-head = TreeNode(2)
-head.left = TreeNode(1)
-head.right = TreeNode(3)
-cases.append(head)
+root = TreeNode(1)
+cases.append(root)
 
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-head.left.left = TreeNode(4)
-cases.append(head)
+root = TreeNode(2)
+root.left = TreeNode(1)
+root.right = TreeNode(3)
+cases.append(root)
 
-head = TreeNode(1)
-head.left = TreeNode(2)
-head.right = TreeNode(3)
-head.left.left = TreeNode(4)
-head.right.left = TreeNode(5)
-head.right.right = TreeNode(6)
-head.right.left.left = TreeNode(7)
-cases.append(head)
+root = TreeNode(2)
+root.left = TreeNode(1)
+root.right = TreeNode(3)
+root.left.left = TreeNode(5)
+root.right.right = TreeNode(4)
+cases.append(root)
 
-# head = TreeNode(8)
-# head.left = TreeNode(3)
-# head.right = TreeNode(10)
-# head.left.left = TreeNode(1)
-# head.left.right = TreeNode(6)
-# head.left.right.left = TreeNode(4)
-# head.left.right.right = TreeNode(7)
-# head.right.right = TreeNode(14)
-# head.right.right.left = TreeNode(13)
-# cases.append(head)
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.right.left = TreeNode(5)
+root.right.right = TreeNode(6)
+root.right.left.left = TreeNode(7)
+cases.append(root)
 
 for c in cases:
-    s = Solution().findBottomLeftValue3(c)
-    print('res:', s)
+    s = Solution().findBottomLeftValue(c)
+    print(s)

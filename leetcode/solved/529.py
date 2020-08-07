@@ -1,61 +1,66 @@
 '''
-- DFS in minesweeper
+Category: DFS
 '''
 
 
 class Solution:
-    direction_row = [-1, -1, 0, 1, 1, 1, 0, -1]
-    direction_column = [0, 1, 1, 1, 0, -1, -1, -1]
+    def updateBoard(self, board: list, click: list):
+        dr = [-1, -1, 0, 1, 1, 1, 0, -1]
+        dc = [0, 1, 1, 1, 0, -1, -1, -1]
+        visited = [[False] * len(board[0]) for _ in range(len(board))]
 
-    def print_board(self, board):
-        for r in range(len(board)):
-            for c in range(len(board[0])):
-                print(board[r][c], end=' ')
-            print()
-
-    def updateBoard(self, board, click):
-        row, col = len(board), len(board[0])
-        visited = [[False]*col for _ in range(row)]
-        click_r, click_c = click[0], click[1]
-
-        def eight_flood_fill(board, visited, r, c):
+        def dfs(r, c):
+            nonlocal dr, dc, visited
+            if visited[r][c]:
+                return
             visited[r][c] = True
-            # find adjacent mines
-            mines = 0
-            for dr, dc in zip(Solution.direction_row, Solution.direction_column):
-                if 0 <= r + dr < row and 0 <= c + dc < col and board[r + dr][c + dc] == 'M':
-                    mines += 1
-            if mines > 0:
-                board[r][c] = str(mines)
-            # find adjacent blanks
-            elif mines == 0:
+            mine_count = 0
+            for i, j in zip(dr, dc):
+                if 0 <= r + i < len(board) and 0 <= c + j < len(board[0]):
+                    if board[r+i][c+j] == 'M':
+                        mine_count += 1
+            if mine_count == 0:
                 board[r][c] = 'B'
-                for dr, dc in zip(Solution.direction_row, Solution.direction_column):
-                    if 0 <= r + dr < row and 0 <= c + dc < col and not visited[r + dr][c + dc]:
-                        eight_flood_fill(board, visited, r + dr, c + dc)
+            else:
+                board[r][c] = str(mine_count)
+                return
+            for i, j in zip(dr, dc):
+                if 0 <= r + i < len(board) and 0 <= c + j < len(board[0]):
+                    if board[r+i][c+j] == 'E':
+                        dfs(r+i, c+j)
 
-        if board[click_r][click_c] == 'M':
-            board[click_r][click_c] = 'X'
-            # self.print_board(visited)
-            return board
+        if board[click[0]][click[1]] == 'M':
+            board[click[0]][click[1]] = 'X'
         else:
-            eight_flood_fill(board, visited, click_r, click_c)
-            # self.print_board(visited)
-            return board
+            dfs(click[0], click[1])
+        return board
 
 
-b = [["E", "E", "E", "E", "E"], ["E", "E", "M", "E", "E"],
-     ["E", "E", "E", "E", "E"], ["E", "E", "E", "E", "E"]]
-c = [3, 0]
-bb = [['B', '1', 'E', '1', 'B'],
-      ['B', '1', 'M', '1', 'B'],
-      ['B', '1', '1', '1', 'B'],
-      ['B', 'B', 'B', 'B', 'B']]
-cc = [1, 2]
-s = Solution()
+cases = [
+    [
+        [
+            ['E', 'E', 'E', 'E', 'E'],
+            ['E', 'E', 'M', 'E', 'E'],
+            ['E', 'E', 'E', 'E', 'E'],
+            ['E', 'E', 'E', 'E', 'E']
+        ],
+        [3, 0]
+    ],
+    [
+        [
+            ['B', '1', 'E', '1', 'B'],
+            ['B', '1', 'M', '1', 'B'],
+            ['B', '1', '1', '1', 'B'],
+            ['B', 'B', 'B', 'B', 'B']
+        ],
+        [1, 2]
+    ]
+]
 
-s.print_board(b)
-print()
-
-updated_board = s.updateBoard(b, c)
-s.print_board(updated_board)
+for c in cases:
+    s = Solution().updateBoard(c[0], c[1])
+    for r in range(len(s)):
+        for c in range(len(s[0])):
+            print(s[r][c], end=' ')
+        print()
+    print()

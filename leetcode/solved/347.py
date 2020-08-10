@@ -1,10 +1,17 @@
+'''
+Category: heap
+'''
 import heapq
 from collections import Counter
 
 
 class Solution:
-    # first try, using max-heap, beats 65%
-    def topKFrequent(self, nums, k):
+    def topKFrequent(self, nums: list, k: int):
+        l = [(-value, key) for key, value in Counter(nums).items()]
+        return [key for value, key in heapq.nsmallest(k, l)]
+
+    # using max-heap, beats 65%
+    def topKFrequent1(self, nums, k):
         num_dict = dict()
         for n in nums:
             if n not in num_dict.keys():
@@ -37,9 +44,11 @@ class Solution:
         return [x[0] for x in Counter(nums).most_common(k)]
 
 
-nums = [4, 4, 4, 2, 2, 3]
-k = 2
-# nums = [-1, -1]
-# k = 1
-s = Solution().topKFrequent3(nums, k)
-print(s)
+cases = [
+    [[1, 1, 1, 2, 2, 3], 2],
+    [[1], 1]
+]
+
+for c in cases:
+    s = Solution().topKFrequent(c[0], c[1])
+    print(s)

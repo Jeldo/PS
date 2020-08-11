@@ -14,6 +14,7 @@ class Solution:
         for _ in range(K):
             res.append(heapq.heappop(p)[1])
         # res = [x[1] for x in heapq.nsmallest(K, p)]
+        return res
 
     def kClosest1(self, points, K):
         point_heap = list()

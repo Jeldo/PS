@@ -1,28 +1,21 @@
 '''
-Time Complexity: O(nlogn)
-How does it work in O(nlogk) ??
-https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
-https://stackoverflow.com/questions/23038756/how-does-heapq-nlargest-work
+Category: heap
 '''
-
-from collections import Counter
 import heapq
+from collections import Counter
 
 
 class Solution:
-    def topKFrequent(self, words, k):
-        # O(n) time, O(n) space
-        word_dict = Counter(words)
-        # O(n)
-        word_list = [(-count, word) for word, count in word_dict.items()]
-        # O(nlogn)
-        return [word for count, word in heapq.nsmallest(k, word_list)]
-
-    def oneliner(self, works, k):
-        return [word for count, word in heapq.nsmallest(k, [(-count, word) for word, count in Counter(words).items()])]
+    def topKFrequent(self, words: list, k):
+        c = [(-v, key) for key, v in Counter(words).items()]
+        return [x[1] for x in heapq.nsmallest(k, c)]
 
 
-words = ["i", "love", "leetcode", "i", "love", "coding"]
-k = 2
-s = Solution().topKFrequent(words, k)
-print(s)
+cases = [
+    [["love", "i", "leetcode", "i", "love", "coding"], 2],
+    [["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4]
+]
+
+for c in cases:
+    s = Solution().topKFrequent(c[0], c[1])
+    print(s)

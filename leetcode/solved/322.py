@@ -4,17 +4,14 @@ Time Complexity: O(m*n), let m: len(coins), n: amount
 Space Complexity: O(n)
 '''
 
+
 class Solution:
     def coinChange(self, coins: list, amount: int):
-        c = [0 for _ in range(0, amount + 1)]
+        dp = [0] * (amount + 1)
         for i in range(1, amount + 1):
-            candidates = [c[i-coin]
-                          for coin in coins if 0 <= i - coin and 0 <= c[i-coin]]
-            if not candidates:
-                c[i] = -1
-            else:
-                c[i] = min(candidates) + 1
-        return c[amount] if 0 <= c[amount] else -1
+            cand = [dp[i-c] for c in coins if 0 <= i - c and 0 <= dp[i-c]]
+            dp[i] = min(cand) + 1 if cand else -1
+        return dp[amount] if 0 <= dp[amount] else -1
 
 
 cases = [
@@ -28,6 +25,5 @@ cases = [
 ]
 
 for c in cases:
-    s = Solution().coinChange(c[0], c[1])
+    s = Solution().coinChange(*c)
     print(s)
-    

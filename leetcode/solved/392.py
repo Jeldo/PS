@@ -18,5 +18,5 @@ cases = [
 ]
 
 for c in cases:
-    s = Solution().isSubsequence2(*c)
+    s = Solution().isSubsequence(*c)
     print(s)

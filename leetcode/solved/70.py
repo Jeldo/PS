@@ -7,13 +7,14 @@ Space Complexity: O(n) or O(1)
 
 class Solution:
     def climbStairs(self, n: int):
+        cost = [1, 2] + [0] * (n - 2)
         if n == 1:
-            return 1
-        steps = [_ for _ in range(0, n + 1)]
-        steps[1], steps[2] = 1, 2
-        for i in range(3, n + 1):
-            steps[i] = steps[i-1] + steps[i-2]
-        return steps[n]
+            return cost[0]
+        elif n == 2:
+            return cost[1]
+        for i in range(2, n):
+            cost[i] = cost[i-1] + cost[i-2]
+        return cost[n-1]
 
     def climbStairs2(self, n: int):
         if n == 1:

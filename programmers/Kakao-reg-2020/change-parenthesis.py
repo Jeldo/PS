@@ -14,13 +14,11 @@ def solution(p):
         if len(w) == 0:
             return ''
         bal = 0
-        sub = ''
         u = v = ''
         for i in range(len(w)):
-            sub += w[i]
             bal = bal - 1 if w[i] == '(' else bal + 1
             if bal == 0:
-                u = sub
+                u = w[:i+1]
                 v = w[i+1:]
                 if validate(u):
                     return u + recursive(v)

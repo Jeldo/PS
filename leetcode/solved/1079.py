@@ -1,31 +1,30 @@
-from itertools import permutations
+'''
+Backtracking, DFS
+'''
 
 
 class Solution:
-    # 1 dfs
-    def numTilePossibilities(self, tiles: str):
-        result = set()
+    def numTilePossibilities(self, tiles: str) -> int:
+        results = set()
 
-        def dfs(path, tile):
-            print(path)
-            if path not in result:
+        def dfs(path: str, tile: str):
+            nonlocal results
+            if path not in results:
                 if path:
-                    result.add(path)
-                for i in range(0, len(tile)):
-                    dfs(path+tile[i], tile[:i]+tile[i+1:])
+                    results.add(path)
+                for i in range(len(tile)):
+                    dfs(path+tile[i], tile[:i] + tile[i+1:])
+
         dfs('', tiles)
-        return len(result)
-
-    # 2 brute force using permutation
-    def numTilePossibilities2(self, tiles: str):
-        tile_set = set()
-        for i in range(1, len(tiles)+1):
-            for p in permutations(tiles, i):
-                s = ''.join(p)
-                if s not in tile_set:
-                    tile_set.add(s)
-        return len(tile_set)
+        return len(results)
 
 
-s = Solution().numTilePossibilities("AABC")
-print(s)
+cases = [
+    'AAB',
+    'AAABBC',
+    'V'
+]
+
+for c in cases:
+    s = Solution().numTilePossibilities(c)
+    print(s)

@@ -1,3 +1,8 @@
+'''
+Backtracking
+'''
+
+
 class Solution:
     def letterCasePermutation(self, S: str):
 
@@ -12,24 +17,25 @@ class Solution:
         dfs('', 0)
         return res
 
-    def letterCasePermutation2(self, S: str):
-        result = set()
+    def letterCasePermutation(self, S: str) -> list:
+        answers = set()
 
-        def dfs(converted, i):
-            if converted not in result:
-                if converted:
-                    result.add(converted)
-            if i >= len(converted):
+        def dfs(s: str, i: int):
+            if len(s) <= i:
                 return
-            if converted[i].isalpha():
-                dfs(converted[:i]+converted[i].lower() +
-                    converted[i+1:], i+1)
-                dfs(converted[:i]+converted[i].upper() +
-                    converted[i+1:], i+1)
+            if s[i].isalpha():
+                lower = s[:i]+s[i].lower()+s[i+1:]
+                upper = s[:i]+s[i].upper()+s[i+1:]
+                answers.add(lower)
+                answers.add(upper)
+                dfs(lower, i+1)
+                dfs(upper, i+1)
             else:
-                dfs(converted, i+1)
+                answers.add(s)
+                dfs(s, i+1)
+
         dfs(S, 0)
-        return result
+        return answers
 
 
 S = "a1b2"

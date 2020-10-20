@@ -15,6 +15,16 @@ class Solution:
             candidates.extend(sorted(v, reverse=True)[:use_limit])
         return sum(sorted(candidates, reverse=True)[:num_wanted])
 
+    def largestValsFromLabels2(self, values: list, labels: list, num_wanted: int, use_limit: int):
+        print(list(zip(values, labels)))
+        dd = defaultdict(list)
+        for v, l in zip(values, labels):
+            dd[l].append(v)
+        candidates = []
+        for k, v in dd.items():
+            candidates.extend(sorted(v, reverse=True)[:use_limit])
+        return sum(sorted(candidates, reverse=True)[:num_wanted])
+
 
 cases = [
     [[5, 4, 3, 2, 1],  [1, 1, 2, 2, 3],  3, 1],
@@ -25,5 +35,5 @@ cases = [
 ]
 
 for c in cases:
-    s = Solution().largestValsFromLabels(*c)
+    s = Solution().largestValsFromLabels2(*c)
     print(s)

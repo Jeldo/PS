@@ -25,6 +25,7 @@ class Solution:
         dfs(root)
         max_keys = []
         max_freq = 0
+        print(d)
         for k, f in d.items():
             if max_freq < f:
                 max_keys = [k]

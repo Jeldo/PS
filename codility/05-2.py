@@ -15,7 +15,7 @@ def solution(S, P, Q):
 
 
 cases = [
-    ['CAGCCTA', [2, 5, 0], [4, 5, 6]]
+    ['CAGCCTA', [2, 5, 0], [4, 5, 6]],
 ]
 
 for c in cases:

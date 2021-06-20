@@ -1,4 +1,3 @@
-# O(n)
 def solution(A):
     nums = set(range(1, len(A)+1))
     for n in A:

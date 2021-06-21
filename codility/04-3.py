@@ -1,5 +1,6 @@
+# O(n)
 def solution(A):
-    nums = set(range(1, len(A)+1))
+    nums = set(range(1, len(A) + 1))
     for n in A:
         if n in nums:
             nums.remove(n)

@@ -2,7 +2,7 @@
 def solution(S, P, Q):
     result = []
     for p, q in zip(P, Q):  # O(N)
-        subsequence = S[p:q+1]
+        subsequence = S[p:q + 1]
         if 'A' in subsequence:  # O(M)
             result.append(1)
         elif 'C' in subsequence:

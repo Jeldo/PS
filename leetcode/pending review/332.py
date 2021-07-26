@@ -8,16 +8,15 @@ class Solution:
         graph = defaultdict(deque)
         for s, d in tickets:
             graph[s].append(d)
-        print(graph)
 
         def dfs(path):
             while graph[path]:
-                next_path = graph[path].pop()
+                next_path = graph[path].popleft()
                 dfs(next_path)
             result.append(path)
 
         dfs('JFK')
-        return result
+        return result[::-1]
 
 
 cases = [

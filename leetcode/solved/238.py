@@ -11,6 +11,21 @@ class Solution:
             p *= nums[i]
         return result
 
+    def productExceptSelf2(self, nums):
+        result = [1] * len(nums)
+        left, right = 0, len(nums) - 1
+        left_product = right_product = 1
+
+        while left < len(nums):
+            result[left] *= left_product
+            result[right] *= right_product
+            left_product *= nums[left]
+            right_product *= nums[right]
+            left += 1
+            right -= 1
+
+        return result
+
 
 cases = [
     [1, 2, 3, 4],

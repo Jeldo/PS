@@ -2,7 +2,7 @@ import bisect
 
 
 class Solution:
-    # O(logN)
+    # O(logM + logN), m: length of row, n: length of column
     def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
         def index(a, x):
             i = bisect.bisect_left(a, x)

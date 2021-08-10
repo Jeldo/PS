@@ -1,21 +1,18 @@
-'''
-Category: heap
-'''
 import heapq
 from collections import Counter
 
 
 class Solution:
-    def topKFrequent(self, words: list, k):
-        c = [(-v, key) for key, v in Counter(words).items()]
-        return [x[1] for x in heapq.nsmallest(k, c)]
+    def topKFrequent(self, words: list[str], k: int) -> list[str]:
+        q = [(-v, k) for k, v in Counter(words).items()]
+        smallest = heapq.nsmallest(k, q)
+        return [f[1] for f in smallest]
 
 
 cases = [
-    [["love", "i", "leetcode", "i", "love", "coding"], 2],
-    [["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4]
+    [["i", "love", "leetcode", "i", "love", "coding"], 2],
+    [["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4],
 ]
 
 for c in cases:
-    s = Solution().topKFrequent(c[0], c[1])
-    print(s)
+    print(Solution().topKFrequent(*c))

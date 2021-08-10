@@ -1,24 +1,18 @@
-'''
-Category: String
-'''
-
-
 class Solution:
-    def generateParenthesis(self, n: int):
-        answer = []
+    def generateParenthesis(self, n: int) -> list[str]:
+        parenthesis = []
 
-        def dfs(p, opened, closed):
-            nonlocal answer
-            print(p)
-            if len(p) == n * 2:
-                answer.append(p)
+        def dfs(p, l, r):
+            if len(p) == 2 * n and l == r:
+                parenthesis.append(p)
                 return
-            if opened < n:
-                dfs(p+'(', opened + 1, closed)
-            if opened > closed:
-                dfs(p+')', opened, closed + 1)
+            if l < r or n < l or n < r:
+                return
+            dfs(p + '(', l + 1, r)
+            dfs(p + ')', l, r + 1)
+
         dfs('', 0, 0)
-        return answer
+        return parenthesis
 
 
 cases = [
@@ -26,5 +20,4 @@ cases = [
 ]
 
 for c in cases:
-    s = Solution().generateParenthesis(c)
-    print(s)
+    print(Solution().generateParenthesis(c))

@@ -31,6 +31,16 @@ class Twitter:
         tweets.sort(key=lambda x: -x[1])
         return [x[0] for x in tweets[:10]]
 
+        # using heapq, but same time complexity
+        # tweets = []
+        # for t in self.tweet[userId]:
+        #     heapq.heappush(tweets, (-t[1], t[0]))
+        # for f in self.follower[userId]:
+        #     for t in self.tweet[f]:
+        #         heapq.heappush(tweets, (-t[1], t[0]))
+        # ten_most_recent_tweets = heapq.nsmallest(10, tweets)
+        # return [t[1] for t in ten_most_recent_tweets]
+
     def follow(self, followerId: int, followeeId: int) -> None:
         """
         Follower follows a followee. If the operation is invalid, it should be a no-op.

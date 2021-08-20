@@ -4,7 +4,7 @@ from collections import OrderedDict
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.maxLength = capacity
+        self.capacity = capacity
         self.cache = OrderedDict()
 
     def get(self, key: int) -> int:
@@ -18,7 +18,7 @@ class LRUCache:
             self.cache[key] = value
             self.cache.move_to_end(key)
             return
-        if len(self.cache) == self.maxLength:
+        if len(self.cache) == self.capacity:
             # remove LRU one
             self.cache.popitem(False)
         self.cache[key] = value
@@ -26,7 +26,7 @@ class LRUCache:
 
 class LRUCacheInDict:
     def __init__(self, capacity: int):
-        self.maxLength = capacity
+        self.capacity = capacity
         self.cache = dict()
 
     def get(self, key: int) -> int:
@@ -41,7 +41,7 @@ class LRUCacheInDict:
             self.cache.pop(key)
             self.cache[key] = value
             return
-        if len(self.cache) == self.maxLength:
+        if len(self.cache) == self.capacity:
             del self.cache[next(iter(self.cache))]
         self.cache[key] = value
 
@@ -49,7 +49,7 @@ class LRUCacheInDict:
 cases = [
     [
         ["LRUCache", "put", "put", "get", "put",
-            "get", "put", "get", "get", "get"],
+         "get", "put", "get", "get", "get"],
         [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]],
     ],
     [

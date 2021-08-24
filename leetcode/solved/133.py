@@ -16,7 +16,7 @@ class Solution:
         visited = set()
         graph = defaultdict(list)
 
-        def dfs(node: Node):
+        def set_graph(node: Node):
             if node.val in visited:
                 return
             if not node.neighbors:
@@ -24,9 +24,9 @@ class Solution:
             visited.add(node.val)
             for neighbor in node.neighbors:
                 graph[node.val].append(neighbor.val)
-                dfs(neighbor)
+                set_graph(neighbor)
 
-        dfs(head)
+        set_graph(head)
 
         new_head = Node(1)
         nodes = defaultdict(Node)

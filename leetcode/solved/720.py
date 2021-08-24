@@ -14,7 +14,7 @@ class Trie:
     def insert(self, word: str):
         node = self.root
         for i, ch in enumerate(word):
-            if ch in node.children and node.is_end:
+            if ch in node.children:
                 node = node.children[ch]
             elif i == len(word) - 1:
                 new_node = Node(ch)

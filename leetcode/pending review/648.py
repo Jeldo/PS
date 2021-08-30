@@ -20,7 +20,7 @@ class Solution:
 cases = [
     [["cat", "bat", "rat"], "the cattle was rattled by the battery"],
     [["a", "b", "c"], "aadsfasf absbs bbab cadsfafs"],
-    [["a", "aa", "aaa", "aaaa"], "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"],
+    [["a", "zamface", "aaa", "aaaa"], "a zamface a aaaa aaa aaa aaa aaaaaa bbb baba ababa"],
     [["catt", "cat", "bat", "rat"], "the cattle was rattled by the battery"],
     [["ac", "ab"], "it is abnormal that this solution is accepted"],
 ]

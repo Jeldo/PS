@@ -1,37 +1,39 @@
 import heapq
-from collections import Counter
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
-        counter = Counter(barcodes)
-        codes, rearranged = [], []
+        codes = defaultdict(int)
+        for code in barcodes:
+            codes[code] += 1
 
-        for k, v in counter.items():
-            codes.append((-v, k))
-        heapq.heapify(codes)
+        heap = []
+        for code, count in codes.items():
+            heap.append((-count, code))
+        heapq.heapify(heap)
 
-        while codes:
-            v_1, k_1 = heapq.heappop(codes)
-            rearranged.append(k_1)
-            if not codes:
+        result = []
+        while heap:
+            first_count, first_code = heapq.heappop(heap)
+            result.append(first_code)
+            if not heap:
                 break
-            v_2, k_2 = heapq.heappop(codes)
-            rearranged.append(k_2)
-            if v_1 < -1:
-                heapq.heappush(codes, (v_1 + 1, k_1))
-            if v_2 < -1:
-                heapq.heappush(codes, (v_2 + 1, k_2))
+            second_count, second_code = heapq.heappop(heap)
+            result.append(second_code)
+            if first_count + 1 < 0:
+                heapq.heappush(heap, (first_count + 1, first_code))
+            if second_count + 1 < 0:
+                heapq.heappush(heap, (second_count + 1, second_code))
 
-        return rearranged
+        return result
 
 
 cases = [
     [1, 1, 1, 2, 2, 2],
+    [1, 1, 1, 2, 2],
     [1, 1, 1, 1, 2, 2, 3, 3],
-    [1, 1, 1, 1, 2, 2, 2],
-    [1, 1, 1, 1, 2, 2, 3],
 ]
 
 for c in cases:

@@ -24,3 +24,29 @@ class Solution:
 
         dfs(root, root.val)
         return longest
+
+    def longestUnivaluePath2(self, root: Optional[TreeNode]) -> int:
+        longest_path = 0
+
+        def dfs(node: Optional[TreeNode]) -> int:
+            nonlocal longest_path
+            if not node:
+                return 0
+
+            left = dfs(node=node.left)
+            right = dfs(node=node.right)
+
+            if node.left and node.left.val == node.val:
+                left += 1
+            else:
+                left = 0
+            if node.right and node.right.val == node.val:
+                right += 1
+            else:
+                right = 0
+
+            longest_path = max(longest_path, left + right)
+            return max(left, right)
+
+        dfs(node=root)
+        return longest_path

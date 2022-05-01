@@ -9,35 +9,36 @@ class Node:
 
 
 class Solution:
-    def cloneGraph(self, head: Node) -> Node:
-        if not head:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
             return None
 
         visited = set()
         graph = defaultdict(list)
 
-        def set_graph(node: Node):
+        def dfs(node):
             if node.val in visited:
                 return
             if not node.neighbors:
                 return
+
             visited.add(node.val)
             for neighbor in node.neighbors:
                 graph[node.val].append(neighbor.val)
-                set_graph(neighbor)
+                dfs(neighbor)
 
-        set_graph(head)
+        dfs(node)
 
-        new_head = Node(1)
+        new_node = Node(1)
         nodes = defaultdict(Node)
-        nodes[1] = new_head
-        for key, values in graph.items():
-            for v in values:
-                if v not in nodes:
-                    nodes[v] = Node(v)
-                nodes[key].neighbors.append(nodes[v])
+        nodes[1] = new_node
+        for key, neighbors in graph.items():
+            for n in neighbors:
+                if n not in nodes:
+                    nodes[n] = Node(n)
+                nodes[key].neighbors.append(nodes[n])
 
-        return new_head
+        return new_node
 
 
 cases = []

@@ -1,57 +1,25 @@
-'''
-Category: Dynamic Programming
-Time Complexity: O(n^2)
-Space Complexity: O(1) - first solution, O(n^2) - second solution
-'''
+from typing import List
+
+# O(m*n)
 
 
 class Solution:
-    # use original list input
-    def minFallingPathSum(self, A: list):
-        for i in range(1, len(A)):
-            for j in range(0, len(A[0])):
-                candidate = list()
-                if 0 <= j - 1:
-                    candidate.append(A[i-1][j-1])
-                if j + 1 < len(A):
-                    candidate.append(A[i-1][j+1])
-                candidate.append(A[i-1][j])
-                A[i][j] += min(candidate)
-        return min(A[-1])
-        
-    # use new list to record a cost
-    def minFallingPathSum2(self, A: list):
-        cost = A.copy()
-        for i in range(1, len(A)):
-            for j in range(0, len(A[0])):
-                candidate = list()
-                if 0 <= j - 1:
-                    candidate.append(A[i-1][j-1])
-                if j + 1 < len(A):
-                    candidate.append(A[i-1][j+1])
-                candidate.append(A[i-1][j])
-                cost[i][j] += min(candidate)
-        return min(cost[-1])
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        for i in range(1, len(matrix)):
+            for j in range(len(matrix[0])):
+                pool = []
+                for k in range(-1, 2):
+                    if 0 <= j + k < len(matrix[0]):
+                        pool.append(matrix[i-1][j+k])
+                matrix[i][j] += min(pool)
 
-    def minFallingPathSum3(self, A: list):
-        for i in range(1, len(A)):
-            for j in range(0, len(A[0])):
-                min_cost = A[i-1][j]
-                if 0 <= j - 1:
-                    min_cost = min(min_cost, A[i-1][j-1])
-                if j + 1 < len(A):
-                    min_cost = min(min_cost, A[i-1][j+1])
-                A[i][j] += min_cost
-        return min(A[-1])
+        return min(matrix[-1])
 
 
 cases = [
-    [[1,2,3],[4,5,6],[7,8,9]],
-    [[-80,-13,22],[83,94,-5],[73,-48,61]],
-    [[-10,0,10]]
+    [[2, 1, 3], [6, 5, 4], [7, 8, 9]],
+    [[-19, 57], [-40, -5]],
 ]
 
 for c in cases:
-    s = Solution().minFallingPathSum3(c)
-    print(s)
-    
+    print(Solution().minFallingPathSum(c))

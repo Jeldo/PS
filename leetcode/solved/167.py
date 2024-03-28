@@ -5,20 +5,16 @@ Time: O(n)
 
 
 class Solution:
-    # two pointers
-    def twoSum(self, numbers: list, target: int):
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
         l, r = 0, len(numbers) - 1
-        result = []
-        while l < r:
-            total = numbers[l] + numbers[r]
-            if total == target:
-                result = [l + 1, r + 1]
-                break
-            elif total < target:
+        two_sum = numbers[l] + numbers[r]
+        while two_sum != target:
+            if two_sum < target:
                 l += 1
             else:
                 r -= 1
-        return result
+            two_sum = numbers[l] + numbers[r]
+        return [l + 1, r + 1]
 
 
 cases = [

@@ -1,18 +1,12 @@
 # O(n)
-from typing import List
-
-
 class Solution:
-    def rob(self, nums: List[int]) -> int:
-        max_rob = 0
-        for i in range(len(nums)):
-            if 3 <= i:
-                nums[i] += max(nums[i-3], nums[i-2])
-            elif 2 <= i:
-                nums[i] += nums[i-2]
-            max_rob = max(max_rob, nums[i])
-
-        return max_rob
+    def rob(self, nums: list[int]) -> int:
+        if len(nums) <= 2:
+            return max(nums)
+        nums[2] += nums[0]
+        for i in range(3, len(nums)):
+            nums[i] += max(nums[i-3], nums[i-2])
+        return max(nums[-1], nums[-2])
 
 
 cases = [

@@ -1,17 +1,12 @@
-'''
-Category: Dynamic Programming
-Time Complexity: O(m*n), let m: len(coins), n: amount
-Space Complexity: O(n)
-'''
-
-
 class Solution:
-    def coinChange(self, coins: list, amount: int):
-        dp = [0] * (amount + 1)
-        for i in range(1, amount + 1):
-            cand = [dp[i-c] for c in coins if 0 <= i - c and 0 <= dp[i-c]]
-            dp[i] = min(cand) + 1 if cand else -1
-        return dp[amount] if 0 <= dp[amount] else -1
+    def coinChange(self, coins: list[int], amount: int) -> int:
+        dp = [amount+1] * (amount+1)
+        dp[0] = 0
+        for i in range(amount+1):
+            for coin in coins:
+                if i - coin >= 0:
+                    dp[i] = min(dp[i], dp[i-coin]+1)
+        return dp[amount] if dp[amount] != amount+1 else -1
 
 
 cases = [
